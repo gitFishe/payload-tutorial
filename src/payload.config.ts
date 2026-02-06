@@ -8,7 +8,7 @@ import {
   OrderedListFeature,
   UnderlineFeature,
   UnorderedListFeature,
-  lexicalEditor,
+  lexicalEditor, FixedToolbarFeature,
 } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -21,6 +21,7 @@ import { Users } from '@/collections/Users'
 import { Footer } from '@/globals/Footer'
 import { Header } from '@/globals/Header'
 import { plugins } from './plugins'
+import {Config} from "@/collections/Articles/config";
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -37,7 +38,7 @@ export default buildConfig({
     },
     user: Users.slug,
   },
-  collections: [Users, Pages, Categories, Media],
+  collections: [Users, Pages, Categories, Media, Config],
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
@@ -47,6 +48,7 @@ export default buildConfig({
     features: () => {
       return [
         UnderlineFeature(),
+        FixedToolbarFeature(),
         BoldFeature(),
         ItalicFeature(),
         OrderedListFeature(),
