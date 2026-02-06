@@ -22,6 +22,7 @@ import { Footer } from '@/globals/Footer'
 import { Header } from '@/globals/Header'
 import { plugins } from './plugins'
 import {Config} from "@/collections/Articles/config";
+import FormSubmissions from "@/collections/FormSubmissions";
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -38,7 +39,7 @@ export default buildConfig({
     },
     user: Users.slug,
   },
-  collections: [Users, Pages, Categories, Media, Config],
+  collections: [Users, Pages, Categories, Media, Config, FormSubmissions],
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || '',

@@ -77,8 +77,9 @@ export interface Config {
     categories: Category;
     media: Media;
     articles: Article;
+    'form-submission': FormSubmission;
     forms: Form;
-    'form-submissions': FormSubmission;
+    'form-submissions': FormSubmission1;
     addresses: Address;
     variants: Variant;
     variantTypes: VariantType;
@@ -111,6 +112,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     articles: ArticlesSelect<false> | ArticlesSelect<true>;
+    'form-submission': FormSubmissionSelect<false> | FormSubmissionSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     addresses: AddressesSelect<false> | AddressesSelect<true>;
@@ -1040,9 +1042,21 @@ export interface Article {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "form-submissions".
+ * via the `definition` "form-submission".
  */
 export interface FormSubmission {
+  id: number;
+  from?: string | null;
+  message?: string | null;
+  source?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-submissions".
+ */
+export interface FormSubmission1 {
   id: number;
   form: number | Form;
   submissionData?:
@@ -1100,12 +1114,16 @@ export interface PayloadLockedDocument {
         value: number | Article;
       } | null)
     | ({
+        relationTo: 'form-submission';
+        value: number | FormSubmission;
+      } | null)
+    | ({
         relationTo: 'forms';
         value: number | Form;
       } | null)
     | ({
         relationTo: 'form-submissions';
-        value: number | FormSubmission;
+        value: number | FormSubmission1;
       } | null)
     | ({
         relationTo: 'addresses';
@@ -1417,6 +1435,17 @@ export interface ArticlesSelect<T extends boolean = true> {
   content?: T;
   contentSummery?: T;
   readTimeInMins?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "form-submission_select".
+ */
+export interface FormSubmissionSelect<T extends boolean = true> {
+  from?: T;
+  message?: T;
+  source?: T;
   updatedAt?: T;
   createdAt?: T;
 }
